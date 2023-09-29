@@ -22,7 +22,7 @@ formElem.addEventListener('submit', (event) => {
     event.preventDefault();
     formElem.reset();
     
-    objectInfo = JSON.parse(localStorage.getItem('feedback-form-state'));
+    const objectInfo = JSON.parse(localStorage.getItem('feedback-form-state'));
     console.log(objectInfo);
 
     localStorage.removeItem('feedback-form-state');
