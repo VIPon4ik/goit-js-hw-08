@@ -9,21 +9,30 @@ if (localStorageValues) {
 }
 
 formElem.addEventListener('input', throttle((event) => {
-    const messageValue = event.currentTarget.message.value;
-    const emailValue = event.currentTarget.email.value;
+        const emailValue = formElem.email.value;
+        const messageValue = formElem.message.value;
 
-    localStorage.setItem('feedback-form-state', JSON.stringify({
-        email: emailValue,
-        message: messageValue,
-    }));
+        localStorage.setItem('feedback-form-state', JSON.stringify({
+            email: emailValue,
+            message: messageValue,
+        }));
 }, 500));
 
 formElem.addEventListener('submit', (event) => {
+    const emailValue = formElem.email.value;
+    const messageValue = formElem.message.value;
     event.preventDefault();
-    formElem.reset();
     
-    const objectInfo = JSON.parse(localStorage.getItem('feedback-form-state'));
+    if (!(messageValue && emailValue)) {
+        return;
+    }
+    
+    const objectInfo = {
+        email: emailValue,
+        message: messageValue,
+    };
     console.log(objectInfo);
-
+    
     localStorage.removeItem('feedback-form-state');
+    formElem.reset();
 })
